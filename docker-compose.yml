@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: ShineShoes_DB
+    restart: always
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: db_postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    container_name: ShineSHoes_Backend
+    depends_on:
+      - db
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/appdb
+      SPRING_DATASOURCE_USERNAME: db_postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    restart: always
+
+volumes:
+  postgres_data:

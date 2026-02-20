@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: ShineShoes
+  jpa:
+    hibernate:
+      ddl-auto:update
+  security:
+    user:
+      name: daniel
+      password: milka
