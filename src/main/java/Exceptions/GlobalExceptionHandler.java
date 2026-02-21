@@ -1,5 +1,6 @@
 package Exceptions;
 
+import Builders.BuildExceptionDTO;
 import DTO.ExceptionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
