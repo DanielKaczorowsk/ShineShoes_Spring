@@ -4,18 +4,26 @@ import DTO.OrderDTO;
 import Model.Order;
 import Model.Product;
 import Model.User;
+import Repository.UserRepository;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public class UserOperation implements OrderOperationInterface
 {
+    private final UserRepository userRepository;
     private OrderDTO query;
     public void query(OrderDTO dto)
     {
         this.query = dto;
     }
+    public UserOperation(UserRepository userRepository)
+    {
+        this.userRepository = userRepository;
+    }
     @Override
-    public List<User> execute()
+    public void execute()
     {
         User user = new User();
         user.setId(this.query.idUser);
@@ -32,7 +40,6 @@ public class UserOperation implements OrderOperationInterface
             }
             user.withOrders(order);
         }
-
-        return List.of(user);
+        this.userRepository.save(user);
     }
 }

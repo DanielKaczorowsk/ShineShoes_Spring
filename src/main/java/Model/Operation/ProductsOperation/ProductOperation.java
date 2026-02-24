@@ -7,7 +7,7 @@ import Model.User;
 
 import java.util.List;
 
-public class ProductOperation implements OrderOperationInterface<Product>
+public class ProductOperation implements OrderOperationInterface
 {
     private OrderDTO query;
     public void query(OrderDTO dto)
@@ -15,11 +15,10 @@ public class ProductOperation implements OrderOperationInterface<Product>
         this.query = dto;
     }
     @Override
-    public List<Product> execute()
+    public void execute()
     {
         Product product = new Product();
         product.setId(this.query.idProduct);
 
-        return List.of(product);
     }
 }

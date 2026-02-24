@@ -1,8 +1,7 @@
 package Services;
 
-import DTO.RegisterDTO;
+import DTO.UserDTO;
 import Factory.RegisterFactory;
-import Model.User;
 import Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ public class RegisterService
     private final UserRepository userRepository;
     @Transactional
 
-    public void register(RegisterDTO query)
+    public void register(UserDTO query)
     {
         this.registerFactory.setQuery(query);
         this.registerFactory.execute();

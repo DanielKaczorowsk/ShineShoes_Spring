@@ -2,26 +2,23 @@ package Model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
+@NoArgsConstructor
 @Getter
 @Setter
-public class Product {
-
-
-    @jakarta.persistence.Id
+public class Product
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private long id;
     private String name;
-
     private double price;
 
     @ManyToMany(mappedBy = "products")

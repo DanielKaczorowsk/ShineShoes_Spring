@@ -1,10 +1,7 @@
 package Factory;
 
 import Builders.UserDirector;
-import DTO.RegisterDTO;
-import Exceptions.ErrorCode;
-import Exceptions.ShopException;
-import Model.User;
+import DTO.UserDTO;
 import Repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -13,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class RegisterFactory
 {
     private final PasswordEncoder passwordEncoder;
-    private RegisterDTO query;
+    private UserDTO query;
     private final UserRepository userRepository;
 
     public RegisterFactory(PasswordEncoder passwordEncoder, UserRepository userRepository)
@@ -21,7 +18,7 @@ public class RegisterFactory
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
-    public RegisterDTO setQuery(RegisterDTO query)
+    public UserDTO setQuery(UserDTO query)
     {
         this.query = query;
         return this.query;
@@ -29,5 +26,6 @@ public class RegisterFactory
     public void execute()
     {
         UserDirector director = new UserDirector();
+        director.build(this.query);
     }
 }

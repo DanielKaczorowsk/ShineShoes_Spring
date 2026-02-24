@@ -1,20 +1,21 @@
 package Builders;
 
-import Builders.UserBuilder.LoginBuilderInterface;
-import Builders.UserBuilder.RegisterBuilder;
+import DTO.UserDTO;
 
 import java.util.List;
 
 public class UserDirector
 {
-    private List<LoginBuilderInterface<?>> list;
-    public List<LoginBuilderInterface<?>> setClass(List<LoginBuilderInterface<?>> list)
+    private List<UserBuilderInterface> list;
+    public List<UserBuilderInterface> setClass(List<UserBuilderInterface> list)
     {
         this.list = list;
         return this.list;
     }
-    public void build()
+    public void build(UserDTO query)
     {
-        list.forEach(LoginBuilderInterface::build);
+        list.forEach(b->{
+            b.build(query);
+        });
     }
 }

@@ -4,7 +4,7 @@ import Model.Order;
 
 import java.util.List;
 
-public interface OperationInterface<T>
+public interface OperationInterface
 {
-    public List<T> execute();
+    public void execute();
 }

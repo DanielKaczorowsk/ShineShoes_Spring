@@ -3,6 +3,8 @@ package Services;
 import DTO.OrderDTO;
 import Model.Operation.ProductsOperation.OrderOperationInterface;
 
+import java.util.List;
+
 public class OrderService
 {
     private OrderDTO query;
@@ -37,9 +39,9 @@ public class OrderService
         return this;
     }
 
-    public int get()
+    public void execute()
     {
         OrderOperationInterface operation = this.orderDate.create();
-        return 0;
+        operation.execute();
     }
 }

@@ -4,7 +4,7 @@ import Model.Operation.OperationInterface;
 
 import java.util.List;
 
-public interface OrderOperationInterface<T> extends OperationInterface<T>
+public interface OrderOperationInterface extends OperationInterface
 {
 
 }

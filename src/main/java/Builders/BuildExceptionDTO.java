@@ -9,6 +9,10 @@ public class BuildExceptionDTO
 {
     private ExceptionDTO query;
 
+    public BuildExceptionDTO()
+    {
+        this.reset();
+    }
     public void reset()
     {
         this.query = new ExceptionDTO();
@@ -20,7 +24,6 @@ public class BuildExceptionDTO
     }
     public BuildExceptionDTO status(HttpStatus status)
     {
-        this.reset();
         this.query.status = status;
         return this;
     }
