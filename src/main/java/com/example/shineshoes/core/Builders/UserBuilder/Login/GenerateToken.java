@@ -3,20 +3,32 @@ package Builders.UserBuilder.Login;
 import DTO.UserDTO;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.security.Key;
 import java.util.Date;
 public class GenerateToken implements LoginBuilderInterface
 {
-    private static final String SECRET_STRING = "twoj_bardzo_dlugi_klucz_ktory_ma_minimum_32_znaki_!!!";
-    private final Key key = Keys.hmacShaKeyFor(SECRET_STRING.getBytes());
+    private final String secret;
+    private final long expiration;
+
+    public GenerateToken(
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.expiration}") long expiration)
+    {
+        this.secret = secret;
+        this.expiration = expiration;
+    }
+
     @Override
     public void build(UserDTO query)
     {
+        Key key = Keys.hmacShaKeyFor(this.secret.getBytes());
+
         String token = Jwts.builder()
                 .subject(query.getName())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .expiration(new Date(System.currentTimeMillis() + this.expiration))
                 .signWith(key)
                 .compact();
         query.setToken(token);

@@ -1,4 +1,4 @@
-package Services;
+package Cache;
 
 import Model.Operation.ProductsOperation.OrderOperation;
 import Model.Operation.ProductsOperation.OrderOperationInterface;
@@ -14,7 +14,7 @@ public enum OrderDate
     {
         this.supplier = supplier;
     }
-    OrderOperationInterface  create()
+    public OrderOperationInterface  create()
     {
         return supplier.get();
     }

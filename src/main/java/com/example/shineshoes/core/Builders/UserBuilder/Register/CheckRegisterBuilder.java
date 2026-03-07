@@ -4,14 +4,18 @@ import DTO.UserDTO;
 import Exceptions.ErrorCode;
 import Exceptions.ShopException;
 import Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CheckRegisterBuilder implements  RegisterBuilderInterface
 {
     private final UserRepository userRepository;
-    public CheckRegisterBuilder(UserRepository userRepository)
-    {
+
+    public CheckRegisterBuilder(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     public void build(UserDTO query)
     {
         if(!userRepository.existsByEmail(query.getEmail()))
