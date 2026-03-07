@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { loginUser } from '../api/api'; // Importujemy nasz "most" do Javy
+import { loginUser } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 
-const LoginForm = () => {
+const LoginForm = ({onLoginSuccess}) => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -11,19 +11,14 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-
         try {
-            // 1. Wysyłamy dane do Springa
             const data = await loginUser(name, password);
-
-            // 2. Jeśli Spring odpowiedział poprawnie, mamy token w data.token
-            if (data.token) {
-                localStorage.setItem('token', data.token); // Zapisujemy bilet w przeglądarce
-                console.log("Sukces! Token zapisany.");
-                navigate('/dashboard'); // Przekierowanie na chronioną stronę
+            if (data) {
+                localStorage.setItem('token', data);
+                onLoginSuccess(data);
+                navigate('/dashboard');
             }
         } catch (err) {
-            // 3. Jeśli hasło złe lub serwer leży
             setError('Błąd logowania: Sprawdź dane lub połączenie z serwerem.');
         }
     };
