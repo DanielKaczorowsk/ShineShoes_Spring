@@ -1,6 +1,6 @@
-package Builders;
+package com.example.shineshoes.core.Builders;
 
-import DTO.ExceptionDTO;
+import com.example.shineshoes.core.DTO.ExceptionDTO;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;

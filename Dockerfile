@@ -5,10 +5,10 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-From eclipse-temurin:21-jre
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 RUN useradd -ms/bin/bash appuser
-COPY --from=builder /build/target/*.jar app.jar
+COPY --from=builder /build/target/*.jar /app/app.jar
 RUN chown appuser:appuser app.jar
 
 USER appuser

@@ -1,6 +1,6 @@
-package Cache.UserCache;
+package com.example.shineshoes.core.Cache.UserCache;
 
-import Builders.UserBuilderInterface;
+import com.example.shineshoes.core.Builders.UserBuilderInterface;
 
 import java.util.List;
 

@@ -1,18 +1,19 @@
-package Builders;
+package com.example.shineshoes.core.Builders;
 
-import DTO.UserDTO;
+import com.example.shineshoes.core.DTO.UserDTO;
+import com.example.shineshoes.core.Exceptions.ErrorCode;
+import com.example.shineshoes.core.Exceptions.ShopException;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class UserDirector
 {
-    private List<UserBuilderInterface> list;
-    public void setClass(List<UserBuilderInterface> list)
+    public void build(UserDTO query,List<UserBuilderInterface> list)
     {
-        this.list = list;
-    }
-    public void build(UserDTO query)
-    {
+        if (list == null || list.isEmpty()) {
+            throw new ShopException(ErrorCode.Empty_Class);
+        }
         list.forEach(b->{
             b.build(query);
         });

@@ -1,8 +1,6 @@
-package Model.Operation.ProductsOperation;
+package com.example.shineshoes.core.Model.Operation.ProductsOperation;
 
-import Model.Operation.OperationInterface;
-
-import java.util.List;
+import com.example.shineshoes.core.Model.Operation.OperationInterface;
 
 public interface OrderOperationInterface extends OperationInterface
 {

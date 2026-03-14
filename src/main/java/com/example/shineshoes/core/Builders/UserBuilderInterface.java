@@ -1,6 +1,7 @@
-package Builders;
+package com.example.shineshoes.core.Builders;
 
-import DTO.UserDTO;
+import com.example.shineshoes.core.DTO.UserDTO;
+import jakarta.mail.MessagingException;
 
 public interface UserBuilderInterface
 {

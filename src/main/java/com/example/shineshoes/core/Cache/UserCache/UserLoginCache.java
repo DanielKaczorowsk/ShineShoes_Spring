@@ -1,24 +1,25 @@
-package Cache.UserCache;
+package com.example.shineshoes.core.Cache.UserCache;
 
-import Builders.UserBuilder.Login.GenerateToken;
-import Builders.UserBuilder.Login.LoginBuilder;
-import Builders.UserBuilderInterface;
+import com.example.shineshoes.core.Builders.UserBuilder.Login.GenerateToken;
+import com.example.shineshoes.core.Builders.UserBuilder.Login.LoginBuilder;
+import com.example.shineshoes.core.Builders.UserBuilderInterface;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class UserLoginCache implements UserCacheInterface
 {
-    private final List<Class<? extends UserBuilderInterface>> loginDate = new ArrayList<>();;
+    private final List<Class<? extends UserBuilderInterface>> cacheLogin = new ArrayList<>();;
 
     public UserLoginCache()
     {
-        this.loginDate.add(LoginBuilder.class);
-        this.loginDate.add(GenerateToken.class);
+        this.cacheLogin.add(LoginBuilder.class);
+        this.cacheLogin.add(GenerateToken.class);
     }
     @Override
     public List<Class<? extends UserBuilderInterface>>getCache()
     {
-        return this.loginDate;
+        return this.cacheLogin;
     }
 }

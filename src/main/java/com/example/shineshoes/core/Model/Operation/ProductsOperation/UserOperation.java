@@ -1,14 +1,10 @@
-package Model.Operation.ProductsOperation;
+package com.example.shineshoes.core.Model.Operation.ProductsOperation;
 
-import DTO.OrderDTO;
-import Model.Order;
-import Model.Product;
-import Model.User;
-import Repository.UserRepository;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
+import com.example.shineshoes.core.DTO.OrderDTO;
+import com.example.shineshoes.core.Model.Order;
+import com.example.shineshoes.core.Model.Product;
+import com.example.shineshoes.core.Model.User;
+import com.example.shineshoes.core.Repository.UserRepository;
 
 public class UserOperation implements OrderOperationInterface
 {

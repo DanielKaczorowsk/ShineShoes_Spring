@@ -1,10 +1,50 @@
 spring:
   application:
     name: ShineShoes
+
+  datasource:
+    url: jdbc:postgresql://db:5432/appdb
+    username: db_postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: d.kaczorowski.1999@gmail.com
+    password: ehiyaztjrdchhgck
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            trust: smtp.gmail.com
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
   jpa:
     hibernate:
-      ddl-auto:update
-  security:
-    user:
-      name: daniel
-      password: milka
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  web:
+    error:
+      include-message: always
+
+jwt:
+  secret: ${JWT_SECRET:twoj_bardzo_dlugi_klucz_ktory_ma_minimum_32_znaki_zabezpieczajacy_system}
+  expiration: 3600000
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+    org.springframework.security: DEBUG

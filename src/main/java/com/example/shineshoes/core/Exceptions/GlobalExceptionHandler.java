@@ -1,7 +1,7 @@
-package Exceptions;
+package com.example.shineshoes.core.Exceptions;
 
-import Builders.BuildExceptionDTO;
-import DTO.ExceptionDTO;
+import com.example.shineshoes.core.Builders.BuildExceptionDTO;
+import com.example.shineshoes.core.DTO.ExceptionDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

@@ -1,8 +1,4 @@
-package Model.Operation;
-
-import Model.Order;
-
-import java.util.List;
+package com.example.shineshoes.core.Model.Operation;
 
 public interface OperationInterface
 {

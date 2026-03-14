@@ -1,11 +1,7 @@
-package Model.Operation.ProductsOperation;
+package com.example.shineshoes.core.Model.Operation.ProductsOperation;
 
-import DTO.OrderDTO;
-import Model.Order;
-import Model.Product;
-import Model.User;
-
-import java.util.List;
+import com.example.shineshoes.core.DTO.OrderDTO;
+import com.example.shineshoes.core.Model.Product;
 
 public class ProductOperation implements OrderOperationInterface
 {

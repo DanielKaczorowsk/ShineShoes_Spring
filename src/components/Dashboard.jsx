@@ -6,32 +6,17 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     return (
-        <div style={{ maxWidth: '300px', margin: 'auto', textAlign: 'center' }}>
-            <h3>Logowanie do Systemu</h3>
-            <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: '10px' }}>
-                    <input
-                        type="text"
-                        placeholder="Login"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div style={{ marginBottom: '10px' }}>
-                    <input
-                        type="password"
-                        placeholder="Hasło"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p style={{ color: 'red', fontSize: '12px' }}>{error}</p>}
-                <button type="submit">Zaloguj się</button>
-            </form>
+        <div className="min-h-full pt-3">
+        <header className="relative bg-white shadow-sm">
+            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <h1 className="text-3xl font-bold tracking-tight text-gray-900">Your Profile</h1>
+            </div>
+        </header>
+            <main>
+                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
+            </main>
         </div>
     );
 };
 
-export default LoginForm;
+export default Dashboard;

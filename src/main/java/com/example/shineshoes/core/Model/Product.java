@@ -1,4 +1,4 @@
-package Model;
+package com.example.shineshoes.core.Model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

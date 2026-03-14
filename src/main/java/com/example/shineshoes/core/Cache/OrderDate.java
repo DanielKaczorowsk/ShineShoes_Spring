@@ -1,7 +1,7 @@
-package Cache;
+package com.example.shineshoes.core.Cache;
 
-import Model.Operation.ProductsOperation.OrderOperation;
-import Model.Operation.ProductsOperation.OrderOperationInterface;
+import com.example.shineshoes.core.Model.Operation.ProductsOperation.OrderOperation;
+import com.example.shineshoes.core.Model.Operation.ProductsOperation.OrderOperationInterface;
 
 import java.util.function.Supplier;
 

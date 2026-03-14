@@ -1,5 +1,6 @@
 package com.example.shineshoes.core.Services;
 
+import com.example.shineshoes.core.Cache.UserCache.UserLoginCache;
 import com.example.shineshoes.core.Cache.UserCache.UserRegisterCache;
 import com.example.shineshoes.core.DTO.UserDTO;
 import com.example.shineshoes.core.Factory.UserFactory;
@@ -10,15 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class RegisterService
+public class UserService
 {
-    private UserFactory userFactory;
-    private final UserRepository userRepository;
+    private final UserFactory userFactory;
+    private final UserRegisterCache register;
+    private final UserLoginCache login;
     @Transactional
 
     public void register(UserDTO query)
     {
-        UserRegisterCache register = new UserRegisterCache();
         this.userFactory.execute(query,register);
     }
+    public void login(UserDTO query){this.userFactory.execute(query,login);}
 }

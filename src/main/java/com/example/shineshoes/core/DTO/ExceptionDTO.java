@@ -1,4 +1,4 @@
-package DTO;
+package com.example.shineshoes.core.DTO;
 
 import org.springframework.http.HttpStatus;
 

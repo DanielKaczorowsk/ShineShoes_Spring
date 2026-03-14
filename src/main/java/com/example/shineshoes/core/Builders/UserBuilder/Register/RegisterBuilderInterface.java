@@ -1,6 +1,6 @@
-package Builders.UserBuilder.Register;
+package com.example.shineshoes.core.Builders.UserBuilder.Register;
 
-import Builders.UserBuilderInterface;
+import com.example.shineshoes.core.Builders.UserBuilderInterface;
 
 public interface RegisterBuilderInterface extends UserBuilderInterface {
 }

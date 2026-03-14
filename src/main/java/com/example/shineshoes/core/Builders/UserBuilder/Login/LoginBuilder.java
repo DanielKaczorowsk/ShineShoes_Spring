@@ -1,23 +1,23 @@
-package Builders.UserBuilder.Login;
+package com.example.shineshoes.core.Builders.UserBuilder.Login;
 
-import DTO.UserDTO;
-import Exceptions.ErrorCode;
-import Exceptions.ShopException;
-import Model.User;
-import Repository.UserRepository;
+import com.example.shineshoes.core.DTO.UserDTO;
+import com.example.shineshoes.core.Exceptions.ErrorCode;
+import com.example.shineshoes.core.Exceptions.ShopException;
+import com.example.shineshoes.core.Model.User;
+import com.example.shineshoes.core.Repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
+@RequiredArgsConstructor
 public class LoginBuilder implements LoginBuilderInterface
 {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public LoginBuilder(UserDTO userDTO) {}
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public void build(UserDTO query)
     {

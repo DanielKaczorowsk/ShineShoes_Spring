@@ -1,4 +1,4 @@
-package Exceptions;
+package com.example.shineshoes.core.Exceptions;
 
 import org.springframework.http.HttpStatus;
 

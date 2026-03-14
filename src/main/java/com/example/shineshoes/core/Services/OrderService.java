@@ -1,8 +1,8 @@
-package Services;
+package com.example.shineshoes.core.Services;
 
-import Cache.OrderDate;
-import DTO.OrderDTO;
-import Model.Operation.ProductsOperation.OrderOperationInterface;
+import com.example.shineshoes.core.Cache.OrderDate;
+import com.example.shineshoes.core.DTO.OrderDTO;
+import com.example.shineshoes.core.Model.Operation.ProductsOperation.OrderOperationInterface;
 
 public class OrderService
 {
