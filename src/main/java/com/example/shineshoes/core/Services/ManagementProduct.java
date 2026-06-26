@@ -1,0 +1,76 @@
+package com.example.shineshoes.core.Services;
+
+import com.example.shineshoes.core.DTO.ManagementDTO;
+import com.example.shineshoes.core.Model.Category;
+import com.example.shineshoes.core.Model.Product;
+import com.example.shineshoes.core.Model.ProductVariant;
+import com.example.shineshoes.core.DTO.ProductVariantDTO;
+import com.example.shineshoes.core.Repository.CategoryRepository;
+import com.example.shineshoes.core.Repository.ProductRepository;
+import com.example.shineshoes.core.Repository.VariantRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class ManagementProduct
+{
+    private final ProductRepository productRepository;
+    private final VariantRepository variantRepository;
+    private final CategoryRepository categoryRepository;
+    @Transactional
+
+    /*public List<String> sendImg(List<MultipartFile> files)
+    {
+        files
+    }*/
+    public void addProduct(ManagementDTO productDTO)
+    {
+        Product product = productRepository.findByNameAndModel(productDTO.getName(), productDTO.getModel()).orElseGet(()->{
+            Product newProduct = new Product();
+            newProduct.setName(productDTO.getName());
+            newProduct.setDescription(productDTO.getDescription());
+            newProduct.setModel(productDTO.getModel());
+            newProduct.setPrice(productDTO.getPrice());
+            newProduct.setTop(false);
+            newProduct.setCreatedAt(LocalDateTime.now());
+            return productRepository.save(newProduct);
+        });
+
+        List<Category> categories = productDTO.getCategory().stream()
+                .map(name ->categoryRepository.findByName(name)
+                        .orElseGet(()->{
+                            Category newCategory = new Category();
+                            newCategory.setName(name);
+                            return categoryRepository.save(newCategory);
+                        })).collect(Collectors.toList());
+        product.setCategories(categories);
+
+        productDTO.getProductVariantDTO()
+            .forEach(variant -> variantRepository.
+                findByProductAndColorAndSize(product,variant.getColor(),variant.getSize())
+                    .ifPresentOrElse((existingVariant)->
+                            {
+                                int q = existingVariant.getQuantity() + variant.getQuantity();
+                                existingVariant.setQuantity(q);
+                                variantRepository.save(existingVariant);
+                            },
+                            ()->{
+                                ProductVariant newproductVariant = new ProductVariant();
+                                newproductVariant.setProduct(product);
+                                newproductVariant.setColor(variant.getColor());
+                                newproductVariant.setSize(variant.getSize());
+                                newproductVariant.setQuantity(variant.getQuantity());
+                                product.getVariants().add(newproductVariant);
+                                variantRepository.save(newproductVariant);
+                }));
+        productRepository.save(product);
+    }
+}

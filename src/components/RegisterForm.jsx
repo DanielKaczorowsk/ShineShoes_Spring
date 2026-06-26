@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registerUser } from '../api/api'; // Musimy to dopisać w api.js
+import { registerUser } from '@/api/api';
 import {Link, useNavigate} from 'react-router-dom';
 
 const RegisterForm = () => {

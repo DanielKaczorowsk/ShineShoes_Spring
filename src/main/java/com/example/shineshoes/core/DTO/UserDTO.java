@@ -1,14 +1,12 @@
 package com.example.shineshoes.core.DTO;
 import jakarta.validation.constraints.*;
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
 public class UserDTO
 {
     @NotBlank(message = "Email can't be empty")

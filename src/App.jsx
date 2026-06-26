@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'; // <--- DODAJ TO
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, Outlet } from 'react-router-dom';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon,ShoppingCartIcon, XMarkIcon,UserIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, BellIcon,ShoppingCartIcon, XMarkIcon,UserIcon,HeartIcon } from '@heroicons/react/24/outline'
 import LoginForm from './components/LoginForm';
 import RegisterForm from "./components/RegisterForm";
 import logo from './assets/LogoShineShoes.png';
 import Dashboard from "./components/Dashboard";
-const Home = () => <h2></h2>;
+import FormProduct from "./components/FormProduct";
+import Home from "./components/Home";
 
 const ProtectedRoute = ({ isLoggedIn }) => {
     if (!isLoggedIn) return <Navigate to="/login" replace />;
@@ -63,7 +64,7 @@ function App() {
 
     return (
         <Router>
-            <Disclosure as="nav" className="relative top-5 bg-white">
+            <Disclosure as="nav" className="relative top-5 bg-white border-b p-4">
                   <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
                     <div className="relative flex h-16 items-center justify-between">
                       <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -78,9 +79,9 @@ function App() {
                       <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                         <div className="flex shrink-0 items-center">
                           <Link to="/"><img
-                            alt="Your Company"
+                            alt="ShineShoes"
                             src={logo}
-                            className="h-20 w-auto"
+                            className="h-52 w-auto"
                           /></Link>
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
@@ -89,22 +90,30 @@ function App() {
                           </div>
                         </div>
                       </div>
+
                       <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                          <div className="ml-3">
+                              <button type="button" className="relative rounded-full p-1 text-[#454545] focus:outline-2 focus:outline-offset-2 focus:outline-gray-400">
+                                  <span className="absolute -inset-1.5" />
+                                  <span className="sr-only">Ulubione</span>
+                                  <HeartIcon aria-hidden="true" className="size-8" />
+                              </button>
+                          </div>
                           <Menu as="div" className="relative ml-3">
-                              <MenuButton className="relative flex rounded-full p-1 text-gray-500 hover:text-gray-700 focus:outline-none">
+                              <MenuButton className="relative flex rounded-full p-1 text-gray-500 hover:text-[#454545] focus:outline-none">
                                   <span className="absolute -inset-1.5" />
                                   <span className="sr-only">Koszyk</span>
                                   <ShoppingCartIcon aria-hidden="true" className="size-7" />
                                   {/* Optional: Cart Count Badge */}
-                                  <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-indigo-600 text-[10px] font-bold text-white">
+                                  <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-[#454545] text-[10px] font-bold text-white">
                                         {products.length}
                                   </span>
                               </MenuButton>
                               <MenuItems
                                   transition
-                                  className="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-lg bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
+                                  className="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-lg bg-white shadow-2xl  transition focus:outline-none data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
                                   <div className="p-4">
-                                      <h2 className="text-lg font-medium text-gray-900">Twój koszyk</h2>
+                                      <h2 className="text-lg font-medium text-[#454545]">Twój koszyk</h2>
                                       <div className="mt-4 flow-root">
                                           <ul role="list" className="-my-4 divide-y divide-gray-200">
                                               {products.map((product) => (
@@ -114,13 +123,13 @@ function App() {
                                                       </div>
 
                                                       <div className="ml-4 flex flex-1 flex-col">
-                                                          <div className="flex justify-between text-sm font-medium text-gray-900">
+                                                          <div className="flex justify-between text-sm font-medium text-[#454545]">
                                                               <h3 className="truncate w-32">{product.name}</h3>
                                                               <p className="ml-2">{product.price}</p>
                                                           </div>
                                                           <div className="flex flex-1 items-end justify-between text-xs">
-                                                              <p className="text-gray-500">Ilość: {product.quantity}</p>
-                                                              <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                              <p className="text-[#454545]">Ilość: {product.quantity}</p>
+                                                              <button type="button" className="font-medium px-6 py-3 text-[10px] rounded-[3px] text-[#454545] border  bg-white border-[#454545] hover:text-white hover:bg-[#454545] transition">
                                                                   Usuń
                                                               </button>
                                                           </div>
@@ -132,13 +141,13 @@ function App() {
 
                                       {/* Footer Section */}
                                       <div className="mt-6 border-t border-gray-200 pt-4">
-                                          <div className="flex justify-between text-base font-medium text-gray-900">
+                                          <div className="flex justify-between text-base font-medium text-[#454545]">
                                               <p>Suma</p>
                                               <p>$262.00</p>
                                           </div>
                                           <div className="mt-4">
                                               <MenuItem>
-                                                  <a href="/checkout" className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                                                  <a href="/checkout" className="flex items-center justify-center px-6 py-3 text-md rounded-md text-[#454545] border  bg-white border-[#454545] hover:text-white hover:bg-[#454545] transition">
                                                       Do kasy
                                                   </a>
                                               </MenuItem>
@@ -148,19 +157,19 @@ function App() {
                               </MenuItems>
                           </Menu>
                           <div className="ml-3">
-                              <button type="button" className="relative rounded-full p-1 text-gray-500 focus:outline-2 focus:outline-offset-2 focus:outline-gray-400">
+                              <button type="button" className="relative rounded-full p-1 text-[#454545] focus:outline-2 focus:outline-offset-2 focus:outline-gray-400">
                               <span className="absolute -inset-1.5" />
                               <span className="sr-only">Powiadomienia</span>
-                              <BellIcon aria-hidden="true" className="size-7" />
+                              <BellIcon aria-hidden="true" className="size-8" />
                             </button>
                           </div>
 
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3">
-                          <MenuButton className="relative flex rounded-full p-1 text-gray-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500">
+                          <MenuButton className="relative flex rounded-full p-1 text-[#454545] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500">
                             <span className="absolute -inset-1.5" />
                             <span className="sr-only">Ustawienia uzytkownika</span>
-                              <UserIcon aria-hidden="true" className="size-7" />
+                              <UserIcon aria-hidden="true" className="size-8" />
                           </MenuButton>
                           <MenuItems
                             transition
@@ -170,7 +179,7 @@ function App() {
                             <MenuItem>
                               <Link
                                 to="/Dashboard"
-                                className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                className="block px-4 py-2 text-sm text-[#454545] data-focus:bg-gray-100 data-focus:outline-hidden"
                               >
                                 Twoj Profil
                               </Link>
@@ -178,14 +187,14 @@ function App() {
                             <MenuItem>
                               <a
                                 href="#"
-                                className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                className="block px-4 py-2 text-sm text-[#454545] data-focus:bg-gray-100 data-focus:outline-hidden"
                               >
                                 Ustawienia
                               </a>
                             </MenuItem>
                             <MenuItem>
                               <a onClick={handleLogout}
-                                className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                className="block px-4 py-2 text-sm text-[#454545] data-focus:bg-gray-100 data-focus:outline-hidden"
                                 >
                                 Wyloguj
                               </a>
@@ -197,7 +206,7 @@ function App() {
                                       <MenuItem>
                                           <Link
                                               to="/login"
-                                              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                              className="block px-4 py-2 text-sm text-[#454545] data-focus:bg-gray-100 data-focus:outline-hidden"
                                           >
                                               Logowanie
                                           </Link>
@@ -205,7 +214,7 @@ function App() {
                                       <MenuItem>
                                           <Link
                                               to="/register"
-                                              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                              className="block px-4 py-2 text-sm text-[#454545] data-focus:bg-gray-100 data-focus:outline-hidden"
                                           >
                                               Rejestracja
                                           </Link>
@@ -241,7 +250,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<LoginForm onLoginSuccess={setIsLoggedIn} />} />
                     <Route path="/register" element={<RegisterForm />} />
-
+                    <Route path="/add/product" element={<FormProduct />} />
                     <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
                         <Route path="/dashboard" element={<Dashboard />} />
                     </Route>

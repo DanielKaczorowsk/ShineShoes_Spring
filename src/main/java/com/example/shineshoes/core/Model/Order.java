@@ -37,7 +37,6 @@ public class Order
     }
     public void withProduct(Product product)
     {
-
         this.products.add(product);
     }
     public Order withStatus(String status)

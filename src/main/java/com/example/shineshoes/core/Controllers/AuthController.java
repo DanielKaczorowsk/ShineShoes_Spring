@@ -1,7 +1,7 @@
 package com.example.shineshoes.core.Controllers;
 
 import com.example.shineshoes.core.DTO.UserDTO;
-import com.example.shineshoes.core.Services.UserService; // Twoja klasa z metodą register()
+import com.example.shineshoes.core.Services.UserService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.autoconfigure.JacksonProperties;

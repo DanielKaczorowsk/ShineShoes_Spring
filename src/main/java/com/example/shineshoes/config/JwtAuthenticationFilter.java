@@ -31,12 +31,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
                                     @NonNull FilterChain filterChain) throws ServletException, IOException, java.io.IOException
     {
         String path = request.getServletPath();
-        if (path.contains("/api/v1/auth")) {
+        if (path.contains("/api/v1/auth")|| path.contains("/api/v1/shopSite") || path.contains("/ws")) {
             filterChain.doFilter(request, response);
             return;
         }
         String authHeader = request.getHeader("Authorization");
-        if(authHeader == null || !authHeader.startsWith("Bearer"))
+        if(authHeader == null || !authHeader.startsWith("Bearer "))
         {
             filterChain.doFilter(request, response);
             return;

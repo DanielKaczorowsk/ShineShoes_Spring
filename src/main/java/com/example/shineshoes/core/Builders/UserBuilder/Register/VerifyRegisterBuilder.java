@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.thymeleaf.context.Context;
@@ -17,7 +18,6 @@ import java.util.UUID;
 
 @Component
 @Slf4j
-@EnableWebMvc
 @RequiredArgsConstructor
 public class VerifyRegisterBuilder implements RegisterBuilderInterface
 {
@@ -32,6 +32,7 @@ public class VerifyRegisterBuilder implements RegisterBuilderInterface
         return templateEngine.process("email/ActiveAccount.html",context);
     }
     @Override
+    @Async
     public void build(UserDTO dto)
     {
         try

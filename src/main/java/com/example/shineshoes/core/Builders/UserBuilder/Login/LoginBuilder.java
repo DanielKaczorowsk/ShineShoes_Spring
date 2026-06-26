@@ -22,10 +22,10 @@ public class LoginBuilder implements LoginBuilderInterface
     public void build(UserDTO query)
     {
         User user = userRepository.findByEmail(query.getEmail())
-                .orElseThrow(() -> new ShopException(ErrorCode.Email_Used));
+                .orElseThrow(() -> new ShopException(ErrorCode.USER_NOT_FOUND));
         if(!passwordEncoder.matches(query.getPassword(), user.getPassword()))
         {
-            throw new ShopException(ErrorCode.Email_Used);
+            throw new ShopException(ErrorCode.INVALID_CREDENTIALS);
         }
         query.setName(user.getName());
     }
