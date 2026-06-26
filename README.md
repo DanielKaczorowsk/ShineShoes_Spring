@@ -36,7 +36,17 @@ Custom Exception in GlobalExceptionHandler
         return ResponseEntity.status(error.getStatus()).body(dto);
     }
 ```
-
+## Microservices
+### Product system
+    Frontend (Vite + React): Packages files and JSON FormData metadata.
+    
+    Backend (Spring Boot): Using @RequestPart annotations and the Jackson engine, automatically deserializes the Blob into a DTO object.
+    
+    Data Layer (JPA/Hibernate + PostgreSQL): The system prevents duplicate records. Before saving, it checks the unique business key (Product + Color + Size):
+    
+    Exists: Increments the quantity field (UPDATE).
+    
+    Does not exist: Creates a new variant entity (INSERT)
 ## Folder Structure
 src/
 - main/java/
