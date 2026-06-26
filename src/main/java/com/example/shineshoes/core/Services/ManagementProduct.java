@@ -9,6 +9,7 @@ import com.example.shineshoes.core.Repository.CategoryRepository;
 import com.example.shineshoes.core.Repository.ProductRepository;
 import com.example.shineshoes.core.Repository.VariantRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,19 +21,29 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
+
 public class ManagementProduct
 {
     private final ProductRepository productRepository;
     private final VariantRepository variantRepository;
     private final CategoryRepository categoryRepository;
+    /**
+     * Adds a product and a list of its variants to the database.
+     * Updates quantities if the variant already exists.
+     * @param productDTO product data with variant list
+     */
     @Transactional
 
     /*public List<String> sendImg(List<MultipartFile> files)
     {
         files
-    }*/
+    }
+    */
+
     public void addProduct(ManagementDTO productDTO)
     {
+
         Product product = productRepository.findByNameAndModel(productDTO.getName(), productDTO.getModel()).orElseGet(()->{
             Product newProduct = new Product();
             newProduct.setName(productDTO.getName());

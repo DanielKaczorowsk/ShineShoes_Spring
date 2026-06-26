@@ -44,23 +44,18 @@ public class ShopController
         List<Product> allModels = this.services.getNewsBoots();
         return ResponseEntity.ok(allModels);
     }
+    /**
+     * Controller function for adding products and their variants and adding existing variants
+     * Data sent from the frontend with product data
+     * @param managementDTO data of product sent from the frontend
+     * @return Reply http to frontend
+     */
     @PostMapping(value = "/addproduct",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> addProduct(@RequestParam("managementDTOJson") String managementDTOJson)
-                                        //@RequestParam("productVariantDTOJson") String productVariantDTOJson)
+    public ResponseEntity<?> addProduct(@RequestPart("managementDTO") ManagementDTO managementDTO)
                                             /*,
                                              @RequestPart("images") List<MultipartFile> images)*/
     {
-        try
-        {
-            ManagementDTO managementDTO = objectMapper.readValue(managementDTOJson, ManagementDTO.class);
-            //ProductVariantDTO productVariantDTO = objectMapper.readValue(productVariantDTOJson,ProductVariantDTO.class);
             managementProduct.addProduct(managementDTO);
             return ResponseEntity.ok(Map.of("message", "Produkt zostal dodany pomyslnie!"));
-        }
-        catch(Exception e)
-        {
-            log.error("Błąd podczas przetwarzania dodawania produktu: ", e);
-            return ResponseEntity.badRequest().body("Błąd parsowania danych: " + e.getMessage());
-        }
     }
 }

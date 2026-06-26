@@ -2,29 +2,19 @@ const API_URL = "http://localhost:8081/api/v1";
 
 export const productProvider = async (
     productData,
-    variantProduct,
     //img
 ) => {
 
     const formData = new FormData();
 
-    formData.append("managementDTOJson", JSON.stringify({
+    formData.append("managementDTO", new Blob([JSON.stringify({
         name: productData.name,
         description: productData.description,
         model: productData.model,
         price: productData.price,
         category: productData.category,
         productVariantDTO: productData.variantProduct
-    }));
-
-    /*formData.append("productVariantDTOJson", JSON.stringify({
-        color: variantProduct[0].color,
-        size: variantProduct[0].size,
-        quantity: variantProduct[0].quantity
-    }));*/
-    /*img.forEach(file => {
-        formData.append("images", file);
-    });*/
+    })], { type: 'application/json' }));
 
     const response = await fetch(`${API_URL}/shopSite/addproduct`, {
         method: "POST",
