@@ -1,12 +1,14 @@
 package com.example.shineshoes.core.Services;
 
 
+import com.example.shineshoes.core.DTO.SimpleProductDTO;
 import com.example.shineshoes.core.Model.Product;
 import com.example.shineshoes.core.Repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,20 +19,21 @@ public class HomeServices
 {
     public final ProductRepository product;
     @Transactional
-    public List<Product> getNewsBoots()
+    public List<SimpleProductDTO> getNewsBoots()
     {
-        Pageable newBoots = PageRequest.of(0, 12);
-        return product.findProductByNews(newBoots);
+        return product.findTop30ByOrderByCreatedAtDesc();
     }
     @Transactional
     public List<Product> getTopProduct(String name)
     {
-        Pageable topTen = PageRequest.of(0, 10);
+        Pageable topTen = PageRequest.of(0, 30);
         return product.findProductByCategoryWithTop(name,topTen);
     }
-    public List<String> getAllModel()
+    @Transactional
+        public List<String> findFirst30DistinctModelBy()
     {
-        return product.findAllModels();
+        Pageable model = PageRequest.of(0, 30);
+        return product.findDistinctModels(model);
     }
 
 }

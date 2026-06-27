@@ -20,16 +20,17 @@ import Autoplay from "embla-carousel-autoplay"
 import banner1 from '../assets/banner/banner_1.png';
 import banner2 from '../assets/banner/banner_2.png';
 import banner3 from '../assets/banner/banner_3.png';
-import {newestData} from "@/api/ShopProvider";
+import {modelsData, newestData} from "@/api/ShopProvider";
 const bannerImg = [banner1,banner2,banner3];
 const Home = () => {
     const plugin = React.useRef(
         Autoplay({ delay: 2000, stopOnInteraction: true })
     )
     const [newProductData, setNewProductData] = useState([]);
+    const [newModelsData , setNewModelsData] = useState([]);
     const [favorite, setFavorite] = useState([]);
     React.useEffect(() =>{
-        const newProduct = async (e) => {
+        const newProduct = async () => {
             try {
                 const newProductData = await newestData();
                 setNewProductData(newProductData);
@@ -38,6 +39,17 @@ const Home = () => {
             }
         };
         newProduct().catch((err) => console.error("Unhandled promise:", err));
+    },[])
+    React.useEffect(() =>{
+        const newModels = async () => {
+            try {
+                const newModelsData = await modelsData();
+                setNewModelsData(newModelsData);
+            }catch (e) {
+                console.error(e.message);
+            }
+        };
+        newModels().catch((err) => console.error("Unhandled promise:", err));
     },[])
     const toggleFavorite = (index) => {
         if (favorite.includes(index)) {
@@ -75,12 +87,12 @@ const Home = () => {
         </Carousel>
         <Carousel className="w-full pb-4 max-w-300 border-b">
             <CarouselContent className="-ml-1">
-                {Array.from({ length: 5 }).map((_, index) => (
+                {newModelsData.map((product,index) => (
                     <CarouselItem key={index} className="basis-1/2 pl-1 lg:basis-1/5">
                         <div className="p-1">
                             <Card className="border-none shadow-none">
                                 <CardContent className="flex items-center justify-center h-24  p-2">
-                                    <span className="text-2xl font-semibold">{index + 1}</span>
+                                    <span className="text-2xl font-semibold">{product}</span>
                                 </CardContent>
                             </Card>
                         </div>
@@ -102,8 +114,8 @@ const Home = () => {
         </h2>
         <Carousel className="w-full pb-4 max-w-300 border-b">
             <CarouselContent className="-ml-1">
-                {Array.from({length: 5}).map((_, index) => (
-                    <CarouselItem key={index} className="basis-1/2 pl-1 lg:basis-1/5">
+                {newProductData.map((product) => (
+                    <CarouselItem key={product.id} className="basis-1/2 pl-1 lg:basis-1/5">
                         <div className="p-1">
                             <Card className="relative mx-auto w-full max-w-sm pt-0">
                                 <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
@@ -114,21 +126,21 @@ const Home = () => {
                                 />
                                 <CardHeader>
 
-                                    <CardTitle>Produkt</CardTitle>
+                                    <CardTitle>{product.name} {product.model}</CardTitle>
                                     <CardDescription>
-                                        cena: 400 PLN
+                                        cena: {product.price} PLN
                                     </CardDescription>
                                     <CardAction className="p-3">
                                         <>
-                                            {favorite.includes(index) ? (
+                                            {favorite.includes(product.id) ? (
                                                 <HeartSolid
                                                     className="w-7 h-7 text-pink-300 cursor-pointer transition hover:scale-110"
-                                                    onClick={() => toggleFavorite(index)}
+                                                    onClick={() => toggleFavorite(product.id)}
                                                 />
                                             ) : (
                                                 <HeartOutline
                                                     className="w-7 h-7 text-gray-400 cursor-pointer transition hover:text-pink-300 hover:scale-110"
-                                                    onClick={() => toggleFavorite(index)}
+                                                    onClick={() => toggleFavorite(product.id)}
                                                 />
                                             )}
                                         </>
@@ -152,8 +164,8 @@ const Home = () => {
         </h2>
         <Carousel className="w-full pb-4 max-w-300 border-b">
             <CarouselContent className="-ml-1">
-                {Array.from({length: 5}).map((_, index) => (
-                    <CarouselItem key={index} className="basis-1/2 pl-1 lg:basis-1/5">
+                {newProductData.map((product) => (
+                    <CarouselItem key={product.id} className="basis-1/2 pl-1 lg:basis-1/5">
                         <div className="p-1">
                             <Card className="relative mx-auto w-full max-w-sm pt-0">
                                 <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
@@ -164,21 +176,21 @@ const Home = () => {
                                 />
                                 <CardHeader>
 
-                                    <CardTitle>Produkt</CardTitle>
+                                    <CardTitle>{product.name} {product.model}</CardTitle>
                                     <CardDescription>
-                                        cena: 400 PLN
+                                        cena: {product.price} PLN
                                     </CardDescription>
                                     <CardAction className="p-3">
                                         <>
-                                            {favorite.includes(index) ? (
+                                            {favorite.includes(product.id) ? (
                                                 <HeartSolid
                                                     className="w-7 h-7 text-pink-300 cursor-pointer transition hover:scale-110"
-                                                    onClick={() => toggleFavorite(index)}
+                                                    onClick={() => toggleFavorite(product.id)}
                                                 />
                                             ) : (
                                                 <HeartOutline
                                                     className="w-7 h-7 text-gray-400 cursor-pointer transition hover:text-pink-300 hover:scale-110"
-                                                    onClick={() => toggleFavorite(index)}
+                                                    onClick={() => toggleFavorite(product.id)}
                                                 />
                                             )}
                                         </>
@@ -199,8 +211,8 @@ const Home = () => {
         </Carousel>
         <Carousel className="w-full pb-4 max-w-300 border-b">
             <CarouselContent className="-ml-1">
-                {newProductData.map((product, index) => (
-                    <CarouselItem key={product.id || index} className="basis-1/2 pl-1 lg:basis-1/5">
+                {newProductData.map((product) => (
+                    <CarouselItem key={product.id} className="basis-1/2 pl-1 lg:basis-1/5">
                         <div className="p-1">
                             <Card className="relative mx-auto w-full max-w-sm pt-0">
                                 <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
@@ -211,13 +223,13 @@ const Home = () => {
                                 />
                                 <CardHeader>
 
-                                    <CardTitle>{product.name}</CardTitle>
+                                    <CardTitle>{product.name} {product.model}</CardTitle>
                                     <CardDescription>
-                                        {product.quantity}
+                                        cena: {product.price} PLN
                                     </CardDescription>
                                     <CardAction className="p-3">
                                         <>
-                                            {favorite.includes(index) ? (
+                                            {favorite.includes(product.id) ? (
                                                 <HeartSolid
                                                     className="w-7 h-7 text-pink-300 cursor-pointer transition hover:scale-110"
                                                     onClick={() => toggleFavorite(product.id)}

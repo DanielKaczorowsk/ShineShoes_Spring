@@ -1,5 +1,6 @@
 package com.example.shineshoes.core.Repository;
 
+import com.example.shineshoes.core.DTO.SimpleProductDTO;
 import com.example.shineshoes.core.Model.Product;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,12 +16,13 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product,Long>
 {
     Optional<Product> findByNameAndModel(String name,String model);
+
     @Query("SELECT p FROM Product p JOIN FETCH p.categories c WHERE c.name = :categoryName AND p.top = true ORDER BY p.createdAt DESC")
     List<Product> findProductByCategoryWithTop(@Param("categoryName") String categoryName, Pageable pageable);
-    @Query("SELECT p FROM Product p ORDER BY p.createdAt DESC")
-    List<Product> findProductByNews(Pageable pageable);
-    @Query("SELECT p.model FROM Product p")
-    List<String> findAllModels();
-    List<Product> findByName(String name);
+
+    List<SimpleProductDTO> findTop30ByOrderByCreatedAtDesc();
+
+    @Query("SELECT DISTINCT p.model FROM Product p")
+    List<String> findDistinctModels(Pageable pageable);
 }
 

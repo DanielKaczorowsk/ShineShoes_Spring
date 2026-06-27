@@ -4,7 +4,6 @@ import com.example.shineshoes.core.DTO.ManagementDTO;
 import com.example.shineshoes.core.Model.Category;
 import com.example.shineshoes.core.Model.Product;
 import com.example.shineshoes.core.Model.ProductVariant;
-import com.example.shineshoes.core.DTO.ProductVariantDTO;
 import com.example.shineshoes.core.Repository.CategoryRepository;
 import com.example.shineshoes.core.Repository.ProductRepository;
 import com.example.shineshoes.core.Repository.VariantRepository;
@@ -12,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;

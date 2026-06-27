@@ -1,8 +1,30 @@
 import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import {Table,TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table";
+import {newestData} from "@/api/ShopProvider";
+import {
+    Pagination,
+    PaginationContent, PaginationEllipsis,
+    PaginationItem,
+    PaginationLink, PaginationNext,
+    PaginationPrevious
+} from "@/components/ui/pagination";
 
 const Dashboard = () => {
+
     const navigate = useNavigate();
+    const [newProductData, setNewProductData] = useState([]);
+    React.useEffect(() =>{
+        const newProduct = async () => {
+            try {
+                const newProductData = await newestData();
+                setNewProductData(newProductData);
+            }catch (e) {
+                console.error(e.message);
+            }
+        };
+        newProduct().catch((err) => console.error("Unhandled promise:", err));
+    },[])
 
     return (
         <div className="min-h-full pt-3">
@@ -12,12 +34,48 @@ const Dashboard = () => {
             </div>
         </header>
             <main>
-                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
-                <p className="mt-10 text-center text-sm/6 text-gray-400">
-                    <Link to="/add/product" className="font-semibold text-gray-500 hover:text-gray-600">
+                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"><Table>
+                    <TableCaption className="text-right"><Link to="/add/product" className="font-semibold text-gray-500 hover:text-gray-600">
                         Dodaj Produkt
-                    </Link>
-                </p>
+                    </Link></TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="w-25">Id</TableHead>
+                            <TableHead>Nazwa Model</TableHead>
+                            <TableHead>Opis</TableHead>
+                            <TableHead className="text-right">Cena</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {newProductData.map((product) => (
+                            <TableRow key={product.id}>
+                                <TableCell className="font-medium">{product.id}</TableCell>
+                                <TableCell>{product.name} {product.model}</TableCell>
+                                <TableCell>{product.description}</TableCell>
+                                <TableCell className="text-right">{product.price}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+
+                </Table></div>
+                <Pagination className="mt-4 cursor-pointer">
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationLink href="#" isActive>1</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationLink href="#">
+                                2
+                            </PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationLink href="#">3</PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationEllipsis />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
             </main>
         </div>
     );

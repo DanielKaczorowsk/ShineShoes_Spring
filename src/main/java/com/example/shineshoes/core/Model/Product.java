@@ -1,5 +1,6 @@
 package com.example.shineshoes.core.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,8 +39,10 @@ public class Product
     private boolean top;
 
     @ManyToMany(mappedBy = "products")
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinTable(name = "product_categories",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name="category_id")
